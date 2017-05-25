@@ -1,0 +1,43 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+body {
+  background-color: #eee;
+}
+
+#home {
+  background-color: #45b862;
+  min-height: 90vh;
+  margin-bottom:10px;
+}
+
+#logo {
+  position: absolute;
+  top: -4px;
+}
+
+#filters {
+  background-color: #9c9;
+  border-radius: 0;
+  border: 1px solid #ccc;
+  border-top-width: 0;
+  padding: 10px;
+  color: #fff;
+}
+
+#filters.open {
+  display:block;
+}
+
+#filters.closed {
+  display:none;
+}
+
+#home .input-group-lg>.form-control, #home .input-group-lg>.input-group-addon, #home .input-group-lg>.input-group-btn>.btn {
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+}
