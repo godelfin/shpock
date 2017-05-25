@@ -27,17 +27,24 @@ body {
   border-top-width: 0;
   padding: 10px;
   color: #fff;
+  padding-bottom:20px;
+  padding-left:30px;
 }
 
 #filters.open {
-  display:block;
+  visibility: visible;
 }
 
 #filters.closed {
-  display:none;
+  visibility: hidden;
 }
 
 #home .input-group-lg>.form-control, #home .input-group-lg>.input-group-addon, #home .input-group-lg>.input-group-btn>.btn {
   border-bottom-left-radius:0;
   border-bottom-right-radius:0;
+}
+
+#searchData {
+  /*position: absolute;
+  visibility: hidden;*/
 }

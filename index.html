@@ -23,6 +23,7 @@
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div id="home" class="jumbotron">
+      <form id="searchForm" method="post">
       <div class="container">
         <div class="row">
           <div class="col col-xs-3">
@@ -30,9 +31,9 @@
           </div>
           <div class="col col-xs-7">
             <div class="input-group input-group-lg">
-              <input id="search" type="text" class="form-control" aria-label="Begin search here" placeholder="Search items..." />
-              <span class="input-group-addon">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              <input id="searchInput" type="text" class="form-control" aria-label="Begin search here" placeholder="Search items..." />
+              <span class="input-group-btn">
+                <submit id="submitButton" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></sumbit>
               </span>
             </div>
           </div>
@@ -45,29 +46,31 @@
                   <div class="row">
                     <div class="col col-xs-6">
                         <h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Listed in the last</h5>
-                        <input type="text" name="recent" data-provide="slider"
+                        <input class="slider" type="text" name="recent" data-provide="slider"
+                        data-target="recent_label"
                         data-slider-min="1"
                         data-slider-max="5"
                         data-slider-step="1"
                         data-slider-value="3"
-                        data-slider-tooltip="hide">
+                        data-slider-tooltip="hide"><br />
+                        <p id="recent_label">7 days</p>
                     </div>
                     <div class="col col-xs-6">
                         <h5><span class="glyphicon glyphicon-sort" aria-hidden="true"></span> Sort by</h5>
                         <div class="row">
                             <div class="col col-xs-6">
-                              <input type="radio" value="distance"> Distance</input>
+                              <input type="radio" checked name="sort" value="distance"> Distance</input>
                             </div>
                             <div class="col col-xs-6">
-                              <input type="radio" value="date"> Date</input>
+                              <input type="radio" name="sort" value="date"> Date</input>
                             </div>
                         </div>
                         <div class="row">
                           <div class="col col-xs-6">
-                            <input type="radio" value="price-asc"> Price ↑</input>
+                            <input type="radio" name="sort" value="price-asc"> Price ↑</input>
                           </div>
                           <div class="col col-xs-6">
-                            <input type="radio" value="price-desc"> Price ↓</input>
+                            <input type="radio" name="sort" value="price-desc"> Price ↓</input>
                           </div>
                         </div>
                     </div>
@@ -75,16 +78,18 @@
                   <div class="row">
                     <div class="col col-xs-6">
                       <h5><span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>  Radius</h5>
-                      <input type="text" name="radius" data-provide="slider"
+                      <input class="slider" type="text" name="radius" data-provide="slider"
+                      data-target="radius_label"
                       data-slider-min="1"
-                      data-slider-max="17"
+                      data-slider-max="18"
                       data-slider-step="1"
                       data-slider-value="9"
                       data-slider-tooltip="hide">
+                      <p id="radius_label">20 km</p>
                     </div>
                     <div class="col col-xs-6">
                       <h5><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> Search only in my country</h5>
-                      <input type="checkbox" data-toggle="toggle"/>
+                      <input name="country_only" type="checkbox" data-toggle="toggle"/>
                     </div>
                   </div>
                   <div class="row">
@@ -94,25 +99,52 @@
                   </div>
                   <div class="row">
                     <div class="col col-xs-6">
-                      <input type="checkbox" value="all"> Everything</input><br />
-                      <input type="checkbox" value="fa"> Fashion and Accessories</input><br />
-                      <input type="checkbox" value="el"> Electronics</input><br />
-                      <input type="checkbox" value="sl"> Sport, Leisure and Games</input><br />
-                      <input type="checkbox" value="am"> Cars and Motors</input><br />
-                      <input type="checkbox" value="se"> Services</input>
+                      <input type="checkbox" checked name="categories" value="all"> Everything</input><br />
+                      <input type="checkbox" name="categories" value="fa"> Fashion and Accessories</input><br />
+                      <input type="checkbox" name="categories" value="el"> Electronics</input><br />
+                      <input type="checkbox" name="categories" value="sl"> Sport, Leisure and Games</input><br />
+                      <input type="checkbox" name="categories" value="am"> Cars and Motors</input><br />
+                      <input type="checkbox" name="categories" value="se"> Services</input>
                     </div>
                     <div class="col col-xs-6">
-                      <input type="checkbox" value="nn"> New in your area</input><br />
-                      <input type="checkbox" value="hg"> Home and Garden</input><br />
-                      <input type="checkbox" value="bc"> Baby and Child</input><br />
-                      <input type="checkbox" value="mb"> Movies, Books and Music</input><br />
-                      <input type="checkbox" value="ho"> Property</input><br />
-                      <input type="checkbox" value="ot"> Other</input>
+                      <input type="checkbox" name="categories" value="nn"> New in your area</input><br />
+                      <input type="checkbox" name="categories" value="hg"> Home and Garden</input><br />
+                      <input type="checkbox" name="categories" value="bc"> Baby and Child</input><br />
+                      <input type="checkbox" name="categories" value="mb"> Movies, Books and Music</input><br />
+                      <input type="checkbox" name="categories" value="ho"> Property</input><br />
+                      <input type="checkbox" name="categories" value="ot"> Other</input>
                     </div>
                   </div>
               </div>
             </div>
           </div>
+      </div>
+      <input type="submit" style="visibility: hidden;" />
+      </form>
+
+      <!-- <div class="container">
+        <div class="row">
+          <div class="col col-xs-7 col-xs-offset-3">
+            <pre id="searchData"></pre>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">JSON Data</h4>
+          </div>
+          <div class="modal-body">
+            <pre id="searchData"></pre>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
 
